@@ -1,0 +1,63 @@
+name: Build and release examples
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  build_release_examples:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install fonts
+        run: |
+          echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections
+          sudo apt install -y --no-install-recommends ttf-mscorefonts-installer
+          sudo fc-cache -fv
+          fc-match Arial
+
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: '0'
+
+      - name: Create initial tag
+        run: |
+          if [ -z "$(git tag -l 'v*')" ]; then
+            git tag v0.0.0
+          fi
+
+      - name: Bump version and push tag
+        id: bump
+        uses: anothrNick/github-tag-action@1.75.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WITH_V: true
+          DEFAULT_BUMP: 'patch'
+
+      - uses: typst-community/setup-typst@v5
+        with:
+          typst-version: 0.15.1
+      - run: typst fonts
+      - run: typst compile --root . tests/all-formats.typ all-formats.pdf
+      - run: typst compile --root . template/main.typ template.pdf
+      - run: typst compile --root . examples/research-poster.typ research-poster.pdf
+      - run: typst compile --root . examples/event-poster.typ event-poster.pdf
+      - name: Check that unsupported sizes are rejected
+        run: "! typst compile --root . tests/unsupported-size.typ unsupported.pdf"
+
+      - name: Create Release
+        id: create_release
+        uses: softprops/action-gh-release@v3
+        with:
+          tag_name: ${{ steps.bump.outputs.new_tag }}
+          name: Version ${{ steps.bump.outputs.new_tag }}
+          draft: false
+          prerelease: false
+          files: |
+            template.pdf
+            research-poster.pdf
+            event-poster.pdf

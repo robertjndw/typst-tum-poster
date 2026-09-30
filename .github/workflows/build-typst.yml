@@ -1,0 +1,36 @@
+name: Build typst
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install fonts
+        run: |
+          echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections
+          sudo apt install -y --no-install-recommends ttf-mscorefonts-installer
+          sudo fc-cache -fv
+          fc-match Arial
+
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - uses: typst-community/setup-typst@v5
+        with:
+          typst-version: 0.15.1
+      - run: typst fonts
+      - run: typst compile --root . tests/all-formats.typ all-formats.pdf
+      - run: typst compile --root . template/main.typ template.pdf
+      - run: typst compile --root . examples/research-poster.typ research-poster.pdf
+      - run: typst compile --root . examples/event-poster.typ event-poster.pdf
+      - name: Check that unsupported sizes are rejected
+        run: "! typst compile --root . tests/unsupported-size.typ unsupported.pdf"
+
+      - name: Upload posters
+        uses: actions/upload-artifact@v7
+        with:
+          name: posters
+          path: "*.pdf"

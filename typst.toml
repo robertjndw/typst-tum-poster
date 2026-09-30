@@ -1,0 +1,15 @@
+[package]
+name = "tum-poster"
+version = "0.1.0"
+entrypoint = "lib.typ"
+authors = ["Robert Jandow"]
+description = "Posters in the TUM corporate design, in every size TUM provides a template for."
+keywords = ["tum", "poster", "technical university of munich", "corporate design"]
+categories = ["poster"]
+compiler = "0.14.0"
+exclude = ["tests"]
+
+[template]
+path = "template"
+entrypoint = "main.typ"
+thumbnail = "thumbnail.png"
