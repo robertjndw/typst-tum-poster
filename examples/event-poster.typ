@@ -1,7 +1,7 @@
 // A notice with little text, following the "Layout für wenig Text" of the
 // official templates: A3 landscape in German, no titles, a single column set
 // in the title size, and only the university in the header.
-#import "../lib.typ": large, poster
+#import "../tum-poster/lib.typ": large, poster
 
 #show: poster.with(
   size: "a3",

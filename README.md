@@ -28,10 +28,11 @@ typst compile --root . examples/event-poster.typ
 
 ## Usage
 
-Start from [`template/main.typ`](template/main.typ):
+Click "Use this template" on GitHub and edit [`main.typ`](main.typ). Everything the
+poster needs but you should not touch lives in [`tum-poster/`](tum-poster/).
 
 ```typ
-#import "../lib.typ": poster
+#import "tum-poster/lib.typ": poster
 
 #show: poster.with(
   size: "a0",
@@ -49,7 +50,7 @@ Body text flows through the page columns.
 ```
 
 ```sh
-typst compile template/main.typ --root .
+typst compile main.typ
 ```
 
 ### Options
@@ -90,7 +91,7 @@ typst compile template/main.typ --root .
 
 ## How the layout was ported
 
-The values in [`src/formats.typ`](src/formats.typ) come from
+The values in [`tum-poster/formats.typ`](tum-poster/formats.typ) come from
 `Ressourcen/Plakat/A*.tex` and `Praeambel*.tex`. Title and body positions were
 checked against the example PDFs of the LaTeX package and are within half a
 millimetre of them.
@@ -115,10 +116,10 @@ the examples.
 
 The code is MIT licensed.
 
-The TUM logos are not. The files in `assets/` (`tum-logo-blue.svg`,
+The TUM logos are not. The files in `tum-poster/assets/` (`tum-logo-blue.svg`,
 `tum-logo-black.svg`, `tum-logo-white.svg`) come from the official TUM LaTeX
 template package, converted to SVG. The logo is a trademark of the Technical
 University of Munich and all rights stay with TUM. You may only use it as the
 TUM corporate design guidelines allow (<https://www.tum.de/cd>), and the MIT
 License does not give you any right to reuse, change or redistribute it. This
-also goes for the logo in the example previews and the template thumbnail.
+also goes for the logo in the example previews and the template preview.

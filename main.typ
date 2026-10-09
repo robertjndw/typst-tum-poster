@@ -1,4 +1,4 @@
-#import "../lib.typ": poster, tum-colors
+#import "tum-poster/lib.typ": poster, tum-colors
 
 #show: poster.with(
   // TUM provides templates for A0 to A4. Margins, font sizes, logo and

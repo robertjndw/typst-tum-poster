@@ -43,7 +43,7 @@ jobs:
           typst-version: 0.15.1
       - run: typst fonts
       - run: typst compile --root . tests/all-formats.typ all-formats.pdf
-      - run: typst compile --root . template/main.typ template.pdf
+      - run: typst compile main.typ main.pdf
       - run: typst compile --root . examples/research-poster.typ research-poster.pdf
       - run: typst compile --root . examples/event-poster.typ event-poster.pdf
       - name: Check that unsupported sizes are rejected
@@ -58,6 +58,6 @@ jobs:
           draft: false
           prerelease: false
           files: |
-            template.pdf
+            main.pdf
             research-poster.pdf
             event-poster.pdf

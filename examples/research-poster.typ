@@ -1,7 +1,7 @@
 // A content-heavy conference poster: A0 portrait with three columns, a figure
 // spanning all columns, a chart, a table, math and a multi-column footer.
 // The study is made up; only the reference to Little's law is real.
-#import "../lib.typ": poster, tum-colors
+#import "../tum-poster/lib.typ": poster, tum-colors
 
 #show: poster.with(
   size: "a0",

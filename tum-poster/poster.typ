@@ -175,7 +175,7 @@
       message: "tum-poster: unknown logo variant " + repr(logo) + ", expected one of "
         + _logo-variants.map(repr).join(", ") + ".",
     )
-    logo = image("../assets/tum-logo-" + logo + ".svg", width: format.logo-width)
+    logo = image("assets/tum-logo-" + logo + ".svg", width: format.logo-width)
   }
   let columns = if columns == auto { format.columns } else { columns }
 

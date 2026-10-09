@@ -1,6 +1,6 @@
 // One page per format TUM has a poster template for, using the sample text of
 // the official LaTeX examples so the pages can be compared with those PDFs.
-#import "../lib.typ": formats, poster
+#import "../tum-poster/lib.typ": formats, poster
 
 #for size in formats.keys() {
   for orientation in ("portrait", "landscape") {
